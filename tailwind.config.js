@@ -10,6 +10,7 @@ module.exports = {
         primary: ['Inter', ...fontFamily.sans],
       },
       colors: {
+        bgAlt: '#f0f2f5',
         primary: {
           // Customize it on globals.css :root
           50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',
