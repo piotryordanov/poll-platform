@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import { Divider, notification } from 'antd';
-import { Form, Input, Button, DatePicker } from 'antd';
-import { useRouter } from 'next/router';
-
 import { SmileOutlined } from '@ant-design/icons';
-
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Divider, notification } from 'antd';
+import { Button, DatePicker, Form, Input } from 'antd';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+
+import UnderlineLink from '@/components/links/UnderlineLink';
 
 const formItemLayout = {
   labelCol: {
@@ -30,12 +30,7 @@ const defaultEmpty = {
   enddate: '',
 };
 
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 import { db } from './firebase';
 
@@ -43,14 +38,11 @@ const Create = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const router = useRouter();
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
     const data = { ...values, timestamp: serverTimestamp() };
     data.enddate = data.enddate.unix();
-    console.log(data.enddate);
     setComponentDisabled(true);
 
     addDoc(collection(db, 'polls'), data).then((e) => {
-      console.log(e);
       notification.open({
         message: 'Success!',
         description: 'Your poll was succesfuly created!',
@@ -59,8 +51,7 @@ const Create = () => {
       router.push('/');
     });
   };
-  const values = defaultValues;
-  console.log(values.title);
+  const values = defaultEmpty;
 
   return (
     <div
@@ -72,7 +63,10 @@ const Create = () => {
       }}
     >
       <div className='layout h-screen bg-bgAlt pt-36 '>
-        <h1 className='mb-12 text-center'>Create New Poll</h1>
+        <h1 className='mb-4 text-center'>Create New Poll</h1>
+        <div className='mb-12 text-center'>
+          <UnderlineLink href='/'>Back to all polls</UnderlineLink>
+        </div>
         <div className='mx-auto w-80 lg:w-96'>
           <Form
             onFinish={onFinish}
