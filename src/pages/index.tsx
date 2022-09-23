@@ -7,7 +7,7 @@ import Layout from '@/components/layout/Layout';
 import UnderlineLink from '@/components/links/UnderlineLink';
 import Seo from '@/components/Seo';
 
-import { db } from './firebase';
+import { db } from '../firebase';
 
 function App() {
   const [polls, setPolls] = React.useState<any[]>([]);
